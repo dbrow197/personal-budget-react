@@ -1,0 +1,34 @@
+
+{
+
+    "myBudget": [
+    {
+        "title": "Eat out",
+        "budget": 90
+    },
+    {
+        "title":"Rent",
+        "budget": 1200
+    },
+    {
+        "title": "Groceries",
+        "budget": 250
+    },
+    {
+        "title":"Phone",
+        "budget": 89
+    },
+    {
+        "title":"Car",
+        "budget": 400
+    },
+    {
+        "title":"Gym",
+        "budget": 35
+    },
+    {
+        "title":"DigitalOcean",
+        "budget": 4
+    }
+    ]
+}

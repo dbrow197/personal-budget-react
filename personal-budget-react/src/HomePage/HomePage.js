@@ -1,13 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Pie } from 'react-chartjs-2';
+//import { render } from '@testing-library/react';
+//import ChartPage from 'ChartPage/ChartPage';
+
 
 function HomePage() {
-  return (
-    <main>
+
+     const [ dataSource, setChartData ] = useState({
+        datasets: [
+          {
+            data: [7,6,5,4,3,2,1],
+            backgroundColor: [
+              "#ffcd56",
+              "#ff6384",
+              "#36a2eb",
+              "#fd6b19",
+              "#cc65fe",
+              "#3cb043",
+              "#931a1a",
+            ],
+          }
+        ],
+        labels: [],
+      });
+     
+
+     useEffect(() => {   
+     axios.get('http://localhost:5000/budget').then (function(res){ 
+        console.log(res);
+        let data=[];
+        let myData = dataSource;
+        let labels=[]
+        for (var i = 0; i < res.data.myBudget.length; i++) {
+           
+           // data.push(res.data.myBudget[i].budget);
+            //labels.push(res.data.myBudget[i].budget);
+            myData.datasets[0].data[i] = res.data.myBudget[i].budget;
+            myData.labels[i] = res.data.myBudget[i].title;
+        }
+       //setChartData(data);
+       //this.setChartData({data: []});
+       //this.setChartData({labels: []})
+         });
+       
+       //this.state = { data: { datasets:[], labels:[] } }
+    } );
+
+
+  
+
+return (
+ <main>
     <div className="container center">
 
         <div className="page-area">
 
-            <div className="text-box">
+            <div className="text-box">  
                 <h1>Stay on track</h1>
                 <p>
                     Do you know where you are spending your money? If you really stop to track it down,
@@ -67,15 +116,20 @@ function HomePage() {
             <div className="text-box">
                 <h1>Chart</h1>
                 <p>
-                    <canvas id="myChart" width="400" height="400"></canvas>
+                    <Pie data={dataSource} width={400} height={400}/>
                 </p>
             </div>
 
         </div>
 
+
+
+
     </div>
+
 </main>
   );
 }
+
 
 export default HomePage;
